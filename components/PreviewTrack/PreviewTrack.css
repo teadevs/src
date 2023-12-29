@@ -1,0 +1,32 @@
+.PreviewTrack {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgb(88, 11, 92);
+}
+
+.PreviewButton {
+    color: rgb(255, 0, 247);
+    background-color: rgb(42, 2, 44);
+    border-radius: 25px;
+    width: 100px;
+    box-shadow: 4px 5px 6px rgba(187, 0, 255, 0.75);
+}
+
+.PreviewButton:hover {
+    color: rgba(255, 0, 247, 0.406);
+    background-color: rgb(88, 11, 92);
+    border-radius: 25px;
+    width: 100px;
+    box-shadow: 10px 8px 7px rgba(255, 6, 168, 0.75);
+}
+
+@media only screen and (max-width: 1020px) {
+    .PreviewTrack {
+        width: 90%;
+        margin-bottom: 2rem;
+    }
+}

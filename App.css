@@ -1,0 +1,63 @@
+body,
+html,
+#root {
+  height: 80%;
+  background-image: url("./439751.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+}
+
+h1 {
+  text-align: center;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 900;
+  font-size: 2.5rem;
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  line-height: 2px;
+}
+
+h1 .highlight {
+  color: #dd02ff;
+  text-shadow: 2px 2px 1px #4c0e9d;
+  font-size: 8rem;
+  font-style: oblique;
+  font-weight: 900;
+  font-family: cursive;
+  line-height: 1px;
+
+}
+
+h2 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 1.5rem;
+}
+
+.App {
+  height: 500px;
+  padding: 15%;  
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 400;
+  color: #fff;
+}
+
+.App-playlist {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+@media only screen and (max-width: 1020px) {
+  .App-playlist {
+  height: auto;
+  align-items: center;
+  flex-direction: column;
+  }
+}
