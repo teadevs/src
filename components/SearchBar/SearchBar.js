@@ -1,5 +1,4 @@
-import React, { useState, useCallback } from "react";
-
+import React, { useState, useCallback } from 'react';
 import "./SearchBar.css";
 
 const SearchBar = (props) => {
@@ -15,12 +14,13 @@ const SearchBar = (props) => {
 
   return (
     <div className="SearchBar">
-      <input id="searchsong" placeholder="Enter A Song Title" onChange={handleTermChange} />
+      <input placeholder="Enter A Song Title" onChange={handleTermChange} />
       <button className="SearchButton" onClick={search}>
         SEARCH
       </button>
     </div>
   );
 };
+
 
 export default SearchBar;

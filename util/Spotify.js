@@ -1,42 +1,72 @@
- //import TrackList from "../components/TrackList/TrackList";
- //import Playlist from "../components/Playlist/Playlist";
- //import Track from "../components/Track/Track";
-
-
-const clientId = '59387dfb638d4bddad54a24e035cc754';
-const redirectUri = 'http://localhost:3000/';
-
+ 
+import { authEndpoint, clientId, redirectUri, scopes } from '../config';
+ 
 
 let accessToken;
-let playlistTrackIds;
 
+
+const initializeSpotifyPlayer = (token) => {
+  const player = new Spotify.Player({
+    name: 'Web Playback SDK Quick Start Player',
+    getOAuthToken: cb => { cb(token); },
+    volume: 0.5
+  });
+
+  player.addListener('ready', ({ device_id }) => {
+    console.log('Ready with Device ID', device_id);
+  });
+  
+  player.addListener('not_ready', ({ device_id }) => {
+    console.log('Device ID has gone offline', device_id);
+  });
+  
+  player.addListener('initialization_error', ({ message }) => {
+      console.error(message);
+  });
+  
+  player.addListener('authentication_error', ({ message }) => {
+      console.error(message);
+  });
+  
+  player.addListener('account_error', ({ message }) => {
+      console.error(message);
+  });
+
+  player.connect();
+
+  document.getElementById('togglePlay').onclick = function() {
+    player.togglePlay();
+  };
+
+
+  return {
+    player
+  };
+} 
 
 const Spotify = {
-  async search(term) {
-    const accessToken = await this.getAccessToken();
+  getAccessToken() {
+    if (accessToken) {
+      return accessToken;
+    }
 
-    return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((jsonResponse) => {
-        // Your existing logic
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
+    const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
+    const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
+    if (accessTokenMatch && expiresInMatch) {
+      accessToken = accessTokenMatch[1];
+      const expiresIn = Number(expiresInMatch[1]);
+      window.setTimeout(() => accessToken = '', expiresIn * 1000);
+      window.history.pushState('Access Token', null, '/'); 
+      return accessToken;
+    } else {
+      const accessUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
+      window.location = accessUrl;
+    }
   },
 
-    
-      async this.getAccessToken() {
-        return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
+  search(term) {
+    const accessToken = Spotify.getAccessToken();
+    return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
@@ -45,17 +75,8 @@ const Spotify = {
     }).then(jsonResponse => {
       if (!jsonResponse.tracks) {
         return [];
-      }, 
-
       }
-  
-
-        
-      const filteredTracks = jsonResponse.tracks.items.filter(track => !playlistTrackIds.includes(track.id));
-
-
-
-      return filteredTracks.map(track => ({
+      return jsonResponse.tracks.items.map(track => ({
         id: track.id,
         name: track.name,
         artist: track.artists[0].name,
@@ -64,9 +85,11 @@ const Spotify = {
       }));
     });
   },
+
   
 
-  savePlaylist (name, trackUris) {
+
+  savePlaylist(name, trackUris) {
     if (!name || !trackUris.length) {
       return;
     }
@@ -93,12 +116,11 @@ const Spotify = {
         });
       });
     });
-  },
-
- 
-  
+  }
 };
 
-
-
 export default Spotify;
+
+
+
+

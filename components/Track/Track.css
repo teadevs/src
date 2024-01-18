@@ -1,6 +1,6 @@
 .Track {
     display: flex;
-    width:auto;
+    width:100%;
     align-items: center;
     flex-direction: column;
     padding: 2px 2px 2px;
@@ -11,7 +11,7 @@
 }
 
 .Track-action {
-    width: 100%;
+    width: 50%;
     height: 2rem;
     cursor: pointer;
     border: 2px solid black;
@@ -40,4 +40,20 @@
     margin-bottom: 2px;
     color:rgb(255, 255, 255);
     background-color: rgba(255, 0, 225, 0.446);
+}
+
+.PlayButton {
+    color: rgb(255, 0, 247);
+    background-color: rgb(42, 2, 44);
+    border-radius: 25px;
+    width: 100px;
+    box-shadow: 4px 5px 6px rgba(187, 0, 255, 0.75);
+}
+
+.PlayButton:hover {
+    color: rgba(255, 0, 247, 0.406);
+    background-color: rgb(88, 11, 92);
+    border-radius: 25px;
+    width: 100px;
+    box-shadow: 10px 8px 7px rgba(255, 6, 168, 0.75);
 }

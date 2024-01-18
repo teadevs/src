@@ -1,28 +1,26 @@
-import React from 'react';
+import React from "react";
 import "./TrackList.css";
-//import PreviewTrack from '../PreviewTrack/PreviewTrack';
-//import "../PreviewTrack/PreviewTrack.css";
-import Track from '../Track/Track'; 
+import Track from "../Track/Track";
+import PlayButton from "../PlayTrack/PlayButton";
+//import SpotifyWebPlayback from "../SpotifyWebPlayback/SpotifyWebPlayback";
 
-const TrackList = ({ tracks, onAdd, onRemove, isRemoval, playlistTrackIds, updatePlaylistTrackIds }) => {
+const TrackList = (props) => {
   return (
     <div className="TrackList">
-      {tracks.map((track) => (
-        <div key={track.id} className="TrackListItem">
+      {props.tracks.map((track) => {
+        return (
           <Track
             track={track}
-            onAdd={onAdd}
-            onRemove={onRemove}
-            isRemoval={isRemoval}
-            playlistTrackIds={playlistTrackIds}
-            updatePlaylistTrackIds = {updatePlaylistTrackIds}
-          />  
-        </div>
-      ))}
+            key={track.id}
+            onAdd={props.onAdd}
+            isRemoval={props.isRemoval}
+            onRemove={props.onRemove}
+            onClick={props.PlayButton}
+          />
+        );
+      })}
     </div>
-    
   );
-  
 };
 
 export default TrackList;
